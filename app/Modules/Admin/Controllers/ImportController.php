@@ -361,6 +361,10 @@ class ImportController extends Controller
         $jenis_soal = trim($sheet->getCell('C4')->getValue())=='Pilihan Ganda'?'P':'E';
         $acak_opsi = trim($sheet->getCell('C5')->getValue())=='Ya'?'Y':'N';
 
+        if (empty($mapel)) {
+          return redirect()->back()->withErrors('Kode mapel tidak ditemukan!');
+        }
+
         $bank = Soal::where('kode',$kode)->first();
         if (!$bank) {
           $bank = new Soal;
